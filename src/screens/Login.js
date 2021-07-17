@@ -91,7 +91,7 @@ class LogIn extends Component {
           <Text style={styles.title}>Bienvenido</Text>
           <Text style={styles.subTitle}>Inicia sesión para continuar</Text>
           <Input
-            placeholder="Usuario"
+            placeholder="Email"
             value={this.state.user}
             onChangeText={text => this.setState({user: text})}
             leftIcon={
@@ -180,7 +180,7 @@ class LogIn extends Component {
               .catch((err)=>{
                 console.error("error twitter signin" + err)
                 if (err.code === "auth/account-exists-with-different-credential") {
-                  Alert.alert('Error', 'Ya existe una cuenta creada con ese email, logueate con tu correo.')
+                  Alert.alert('Error', 'Ya existe una cuenta asociada con ese email, logueate con el servicio asociado a tu correo.')
                 }
               })
             }
