@@ -46,7 +46,11 @@ export default class Home extends Component {
                 style={[
                   styles.button,
                   { backgroundColor: 'rgba(238, 0, 238, 0.5)' },
-                ]}>
+                ]}
+                onPress={() => {
+                  this.props.navigation.navigate('AppStack', { screen: 'Profile' })
+                }}
+                >
                 <Text style={styles.text}>Perfil</Text>
               </TouchableOpacity>
             </View>
@@ -56,7 +60,11 @@ export default class Home extends Component {
                 style={[
                   styles.button,
                   { backgroundColor: 'rgba(255, 165, 0, 0.5)' },
-                ]}>
+                ]}
+                onPress={() => {
+                  this.props.navigation.navigate('AppStack', { screen: 'Posts' })
+                }}
+                >
                 <Text style={styles.text}>Posteos</Text>
               </TouchableOpacity>
 
@@ -64,7 +72,11 @@ export default class Home extends Component {
                 style={[
                   styles.button,
                   { backgroundColor: 'rgba(0, 165, 188, 0.8)' },
-                ]}>
+                ]}
+                onPress={() => {
+                  this.props.navigation.navigate('AppStack', { screen: 'Map' })
+                }}
+              >
                 <Text style={styles.text}>Mapa</Text>
               </TouchableOpacity>
             </View>

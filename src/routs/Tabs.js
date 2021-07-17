@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { HomeStackScreen } from './HomeStack';
 import { ProfileStackScreen } from './ProfileStack';
@@ -8,7 +8,7 @@ import { Icon } from 'react-native-elements';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export const Tabs = () => {
+export const Tabs = (props) => {
   return (
     <Tab.Navigator
       tabBarOptions={{
