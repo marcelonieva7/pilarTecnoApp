@@ -7,7 +7,7 @@ const MapStack = createStackNavigator();
 export const MapStackScreen = () => {
   return (
     <MapStack.Navigator>
-      <MapStack.Screen name="Map" component={Map} />
+      <MapStack.Screen name="Map" component={Map} options={{headerShown: false}}/>
     </MapStack.Navigator>
   );
 };

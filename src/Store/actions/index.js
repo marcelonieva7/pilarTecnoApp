@@ -1,9 +1,7 @@
 import * as user from './user';
+import * as posts from './posts';
+
 export const actions = {
   user,
+  posts,
 };
-
-// import * as user from './todoActions';
-// export const actions = {
-//   user,
-// };
