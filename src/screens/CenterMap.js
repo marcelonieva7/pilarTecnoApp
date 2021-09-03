@@ -1,9 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
-import { Dimensions, StyleSheet, View, ActivityIndicator } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { actions } from '../Store/actions';
-import { connect } from 'react-redux';
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { hasLocationPermission } from '../services/LocationPermission';
@@ -17,13 +15,14 @@ const LONGITUDE = -66.3298548;
 const LATITUDE_DELTA = 0.00422;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
-class Map extends Component {
+class CenterMap extends Component {
   constructor(props) {
     super(props);
+    const { coordenades } = this.props.route.params.item;
     this.state = {
       region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
+        latitude: coordenades.lat || LATITUDE,
+        longitude: coordenades.lon || LONGITUDE,
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
       },
@@ -34,7 +33,6 @@ class Map extends Component {
     this.setState({ region });
   };
   componentDidMount = async () => {
-    this.props.getCenters();
     await hasLocationPermission();
     this._getLocation();
   };
@@ -52,9 +50,6 @@ class Map extends Component {
           },
           1000,
         );
-        this.setState({
-          region: { ...this.state.region, longitude, latitude },
-        });
         console.log(
           'posicion actual... Latitud: ' +
             `${JSON.stringify(longitude)}` +
@@ -87,7 +82,7 @@ class Map extends Component {
     this._getLocation();
   }
   render() {
-    const { centers } = this.props;
+    const { name, adress, coordenades } = this.props.route.params.item;
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -97,22 +92,16 @@ class Map extends Component {
           mapType={this.state.mapType}
           style={styles.map}
           initialRegion={this.state.region}
+          // region={this.state.region}
           onRegionChangeComplete={this.onRegionChange}>
-          {!centers ? (
-            <ActivityIndicator />
-          ) : (
-            centers.map(center => (
-              <Marker
-                key={center._id}
-                coordinate={{
-                  latitude: center.coordenades.lat || LATITUDE,
-                  longitude: center.coordenades.lon || LONGITUDE,
-                }}
-                title={center.name}
-                description={center.adress}
-              />
-            ))
-          )}
+          <Marker
+            coordinate={{
+              latitude: coordenades.lat || LATITUDE,
+              longitude: coordenades.lon || LONGITUDE,
+            }}
+            title={name}
+            description={adress}
+          />
         </MapView>
         <View
           style={{
@@ -173,13 +162,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
   },
-  markerFixed: {
-    left: '50%',
-    marginLeft: -24,
-    marginTop: -48,
-    position: 'absolute',
-    top: '50%',
-  },
   map: {
     ...StyleSheet.absoluteFillObject,
     width,
@@ -198,10 +180,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => ({
-  getCenters: () => dispatch(actions.centers.getCenters()),
-});
-const mapStateToProps = state => ({
-  centers: state.centers.centers,
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default CenterMap;

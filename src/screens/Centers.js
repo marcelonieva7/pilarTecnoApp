@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import {
   SafeAreaView,
@@ -9,7 +10,7 @@ import {
   View,
   ImageBackground,
 } from 'react-native';
-import { Button, Divider } from 'react-native-elements';
+import { Button, Divider, Image } from 'react-native-elements';
 import { actions } from '../Store/actions';
 import { connect } from 'react-redux';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -17,21 +18,21 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-class Posts extends Component {
+class Centers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: null,
+      centers: null,
     };
   }
   componentDidMount = () => {
-    this.props.getPosts();
+    this.props.getCenters();
   };
   keyExtractor = (item, index) => index.toString();
 
   renderItem = ({ item }) => (
     <TouchableWithoutFeedback
-      onPress={() => this.props.navigation.navigate('PostDetail', { item })}>
+      onPress={() => this.props.navigation.navigate('CenterDetail', { item })}>
       <View
         style={{
           margin: 20,
@@ -40,16 +41,20 @@ class Posts extends Component {
           padding: 5,
         }}>
         <View style={styles.titlecontainer}>
-          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.title}>{item.name}</Text>
         </View>
         <Divider />
         <View style={styles.bodycontainer}>
-          <Text style={styles.text}>{item.body}</Text>
+          <Image
+            source={{ uri: item?.img }}
+            style={{ width: 200, height: 200 }}
+            PlaceholderContent={<ActivityIndicator />}
+          />
         </View>
       </View>
     </TouchableWithoutFeedback>
   );
-  
+
   render() {
     return (
       <SafeAreaView
@@ -59,23 +64,23 @@ class Posts extends Component {
           alignItems: 'center',
           backgroundColor: 'white',
         }}>
-        {!this.props.posts ? (
+        {!this.props.centers ? (
           <ActivityIndicator />
         ) : (
           <ImageBackground
             style={{ height, width, paddingTop: height / 9 }}
             source={require('../assets/images/fondo1.jpg')}>
-            <View style={{ flex: 1 , alignItems: "center" }}>
+            <View style={{ flex: 1, alignItems: 'center' }}>
               <Button
-                title="Crear Nuevo Post"
-                onPress={() => this.props.navigation.navigate('PostCreate')}
-                buttonStyle={{marginBottom: 12 }}
+                title="Crear Nuevo Centro"
+                onPress={() => this.props.navigation.navigate('CenterCreate')}
+                buttonStyle={{ marginBottom: 12 }}
               />
               <FlatList
                 keyExtractor={this.keyExtractor}
-                data={this.props.posts}
+                data={this.props.centers}
                 renderItem={this.renderItem}
-                style={{marginBottom: 18}}
+                style={{ marginBottom: 18 }}
               />
             </View>
           </ImageBackground>
@@ -102,6 +107,9 @@ const styles = StyleSheet.create({
   },
   bodycontainer: {
     padding: 10,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   content: {
     margin: width / 20,
@@ -111,10 +119,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-const mapDispatchToProps = (dispatch) => ({
-  getPosts: () => dispatch(actions.posts.getPosts()),
+const mapDispatchToProps = dispatch => ({
+  getCenters: () => dispatch(actions.centers.getCenters()),
 });
-const mapStateToProps = (state) => ({
-  posts: state.posts.posts,
+const mapStateToProps = state => ({
+  centers: state.centers.centers,
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Posts);
+export default connect(mapStateToProps, mapDispatchToProps)(Centers);

@@ -3,12 +3,12 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { HomeStackScreen } from './HomeStack';
 import { ProfileStackScreen } from './ProfileStack';
 import { MapStackScreen } from './MapStack';
-import { PostsStackScreen } from './PostsStack';
+import { CentersStackScreen } from './CentersStack';
 import { Icon } from 'react-native-elements';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export const Tabs = (props) => {
+export const Tabs = props => {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -41,12 +41,12 @@ export const Tabs = (props) => {
         }}
       />
       <Tab.Screen
-        name="Posts"
-        component={PostsStackScreen}
+        name="Centers"
+        component={CentersStackScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon
-              name={'marker'}
+              name={'hospital'}
               type="font-awesome-5"
               size={20}
               color={color}

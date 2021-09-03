@@ -1,5 +1,5 @@
 export const LOG_IN = 'LOG_IN';
-export const DEL_POSTS = 'DEL_POSTS';
-export const UPDATE_POSTS = 'UPDATE_POSTS';
-export const POST_POSTS = 'POST_POSTS';
-export const FETCH_POSTS = 'FETCH_POSTS';
+export const DEL_CENTERS = 'DEL_CENTERS';
+export const UPDATE_CENTERS = 'UPDATE_CENTERS';
+export const POST_CENTERS = 'POST_CENTERS';
+export const FETCH_CENTERS = 'FETCH_CENTERS';

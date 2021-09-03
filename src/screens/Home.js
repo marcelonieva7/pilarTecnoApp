@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import {
   SafeAreaView,
@@ -48,9 +49,10 @@ export default class Home extends Component {
                   { backgroundColor: 'rgba(238, 0, 238, 0.5)' },
                 ]}
                 onPress={() => {
-                  this.props.navigation.navigate('AppStack', { screen: 'Profile' })
-                }}
-                >
+                  this.props.navigation.navigate('AppStack', {
+                    screen: 'Profile',
+                  });
+                }}>
                 <Text style={styles.text}>Perfil</Text>
               </TouchableOpacity>
             </View>
@@ -62,10 +64,11 @@ export default class Home extends Component {
                   { backgroundColor: 'rgba(255, 165, 0, 0.5)' },
                 ]}
                 onPress={() => {
-                  this.props.navigation.navigate('AppStack', { screen: 'Posts' })
-                }}
-                >
-                <Text style={styles.text}>Posteos</Text>
+                  this.props.navigation.navigate('AppStack', {
+                    screen: 'Centers',
+                  });
+                }}>
+                <Text style={styles.text}>Centros</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -74,9 +77,8 @@ export default class Home extends Component {
                   { backgroundColor: 'rgba(0, 165, 188, 0.8)' },
                 ]}
                 onPress={() => {
-                  this.props.navigation.navigate('AppStack', { screen: 'Map' })
-                }}
-              >
+                  this.props.navigation.navigate('AppStack', { screen: 'Map' });
+                }}>
                 <Text style={styles.text}>Mapa</Text>
               </TouchableOpacity>
             </View>

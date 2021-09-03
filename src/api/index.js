@@ -1,75 +1,51 @@
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
-///LIST POSTS
-export const fetchPosts = () => {
-  return fetch(BASE_URL + '/posts').then((Response) => {
+const BASE_URL = 'https://covidcentre.herokuapp.com/api';
+
+///LIST CENTERS
+export const fetchCenters = () => {
+  return fetch(`${BASE_URL}/vaccinationcentres`, {
+    method: 'GET',
+    headers: {
+      'Content-type': 'application/json',
+    },
+  }).then(Response => {
     return Promise.all([Response, Response.json()]);
   });
 };
-///LIST COMMENTS'S POST
-export const fetchComments = ({ id }) => {
-  return fetch(`${BASE_URL}/posts/${id}/comments`).then((Response) => {
-    return Promise.all([Response, Response.json()]);
-  });
-};
-///CREATE POST
-export const postPosts = ({ title, body }) => {
-  return fetch(BASE_URL + '/posts', {
+///CREATE CENTER
+export const postCenters = body => {
+  return fetch(`${BASE_URL}/vaccinationcentres`, {
     method: 'POST',
-    body: JSON.stringify({
-      title,
-      body,
-      userId: 1,
-    }),
+    body: JSON.stringify(body),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      'Content-type': 'application/json',
     },
-  }).then((Response) => {
+  }).then(Response => {
     console.log('json create: ' + JSON.stringify(Response));
     return Promise.all([Response, Response.json()]);
   });
 };
-///EDIT POST
-export const putPost = ({ title, body, id }) => {
-  return fetch(`${BASE_URL}/posts/${id}`, {
+///EDIT CENTER
+export const putCenter = ({ body, _id }) => {
+  return fetch(`${BASE_URL}/vaccinationcentres/${_id}`, {
     method: 'PUT',
-    body: JSON.stringify({
-      id,
-      title,
-      body,
-      userId: 1,
-    }),
+    body: JSON.stringify(body),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      'Content-type': 'application/json',
     },
-  }).then((Response) => {
-    console.log('json create: ' + JSON.stringify(Response));
+  }).then(Response => {
+    console.log('json edit: ' + JSON.stringify(Response));
     return Promise.all([Response, Response.json()]);
   });
 };
-///DELETE POST
-export const deletePost = ({ id }) => {
-  return fetch(`${BASE_URL}/posts/${id}`, {
+///DELETE CENTER
+export const deleteCenter = _id => {
+  return fetch(`${BASE_URL}/vaccinationcentres/${_id}`, {
     method: 'DELETE',
-  }).then((Response) => {
-    console.log('json create: ' + JSON.stringify(Response));
-    return Promise.all([Response, Response.json()]);
-  });
-};
-///SHOW POST
-export const showPost = ({ title, body, id }) => {
-  return fetch(`${BASE_URL}/posts/${id}${id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-      id,
-      title,
-      body,
-      userId: 1,
-    }),
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      'Content-type': 'application/json',
     },
-  }).then((Response) => {
-    console.log('json create: ' + JSON.stringify(Response));
+  }).then(Response => {
+    console.log('json delete: ' + JSON.stringify(Response));
     return Promise.all([Response, Response.json()]);
   });
 };

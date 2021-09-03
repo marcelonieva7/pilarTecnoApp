@@ -1,7 +1,7 @@
 import * as user from './user';
-import * as posts from './posts';
+import * as centers from './centers';
 
 export const actions = {
   user,
-  posts,
+  centers,
 };
